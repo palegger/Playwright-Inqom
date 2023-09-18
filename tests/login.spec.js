@@ -12,7 +12,8 @@ test.describe('Login tests', () => {
 
   test('Attempting to login with incorrect email syntaxe', async ({ page }) => {
     const response = await login(page, 'bademail', 'badpassword', false);
-    await page.$('span:is([style*="color: rgb(175, 70, 54)"]):text("Email invalide")');    
+    const text = await page.locator('span:text("Email invalide")');
+    await expect(text).toHaveCSS('color', 'rgb(175, 70, 54)');   
   });
 
   test('Attempting to login', async ({ page }) => {
