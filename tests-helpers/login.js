@@ -14,4 +14,12 @@ async function loginFull(page) {
     expect(response.status()).toBe(201);
 }
 
-module.exports = { login, loginFull };
+async function loginWithNoCredentials(page) {
+    await page.getByTestId('login-button-submit').click();
+    const spanEmail = await page.locator('span:text("Champ requis")');
+    await expect(spanEmail).toHaveCSS('color', 'rgb(175, 70, 54)');
+    const spanPassword = await page.locator('span:text("Doit contenir au minimum 8 caractères")');
+    await expect(spanPassword).toHaveCSS('color', 'rgb(175, 70, 54)');
+}
+
+module.exports = { login, loginFull, loginWithNoCredentials };

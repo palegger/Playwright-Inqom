@@ -1,5 +1,5 @@
 const { test, expect } = require('@playwright/test');
-const { login, loginFull } = require('../tests-helpers/login.js');
+const { login, loginFull, loginWithNoCredentials } = require('../tests-helpers/login.js');
 
 test.describe('Login tests', () => {
   test('Attempting to login with incorrect credentials', async ({ page }) => {
@@ -19,11 +19,7 @@ test.describe('Login tests', () => {
 
   test('Attempting to login without any credentials', async ({ page }) => {
     await page.goto('https://www.welcometothejungle.com/fr/signin');
-    await page.getByTestId('login-button-submit').click();
-    const spanEmail = await page.locator('span:text("Champ requis")');
-    await expect(spanEmail).toHaveCSS('color', 'rgb(175, 70, 54)');
-    const spanPassword = await page.locator('span:text("Doit contenir au minimum 8 caractères")');
-    await expect(spanPassword).toHaveCSS('color', 'rgb(175, 70, 54)');
+    await loginWithNoCredentials(page);
   });
 
   test('Attempting to login', async ({ page }) => {
