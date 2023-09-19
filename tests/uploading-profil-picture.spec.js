@@ -1,6 +1,6 @@
-const { test, expect } = require('@playwright/test');
+ const { test, expect } = require('@playwright/test');
 const { loginFull } = require('../tests-helpers/login.js');
-const { uploadProfilePicture, uploadProfilePictureFull } = require('../tests-helpers/upload-profile-picture.js');
+const { uploadProfilePicture, uploadProfilePictureFull, checkThatImageIsNotHere } = require('../tests-helpers/upload-profile-picture.js');
 
 let page = undefined;
 
@@ -27,6 +27,7 @@ test.describe('Uploading profile picture', () => {
         await text.click()
         await expect(text).toHaveCSS('color', 'rgb(175, 70, 54)');  
         await expect(text).toBeVisible();
+        await checkThatImageIsNotHere(page);
     });
 
     test('Uploading a profile pdf', async () => {
@@ -36,5 +37,6 @@ test.describe('Uploading profile picture', () => {
         await text.click();
         await expect(text).toHaveCSS('color', 'rgb(175, 70, 54)');  
         await expect(text).toBeVisible();
+        await checkThatImageIsNotHere(page);
     });
 });
