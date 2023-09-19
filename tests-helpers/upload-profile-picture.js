@@ -1,5 +1,4 @@
 const { expect } = require('@playwright/test');
-const { Page } = require('playwright');
 
 async function uploadProfilePicture(page, name, isImageCorrect) {
     await page.locator('input[name="avatar"]').setInputFiles(name);
